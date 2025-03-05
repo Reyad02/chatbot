@@ -1,9 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: ["img.daisyui.com"],
+    domains: ["img.daisyui.com", "cdn-icons-png.flaticon.com"], // Add allowed domains
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
