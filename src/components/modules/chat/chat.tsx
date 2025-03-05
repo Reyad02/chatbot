@@ -5,12 +5,11 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
+import { Message } from "@/types/message";
 
 const ChatPage = () => {
   const { register, handleSubmit, reset } = useForm<{ question: string }>();
-  const [messages, setMessages] = useState<
-    { role: "user" | "assistant"; content: string }[]
-  >([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [uniqueIdentifier, setUniqueIdentifier] = useState<string>("");
 
