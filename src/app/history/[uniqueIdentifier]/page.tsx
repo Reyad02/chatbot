@@ -12,7 +12,6 @@ const SingleChatPage = () => {
     axios
       .get(`http://localhost:5000/api/chat/history/${uniqueIdentifier}`)
       .then(function (response) {
-        console.log(response.data.data.messages);
         setPrevMsgs(response.data.data.messages)
       })
       .catch(function (error) {

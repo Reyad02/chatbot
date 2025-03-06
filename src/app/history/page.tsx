@@ -12,7 +12,6 @@ const HistoryPage = () => {
     axios
       .get("http://localhost:5000/api/chat/history")
       .then(function (response) {
-        console.log(response.data.data);
         setPrevMsgs(response.data.data);
       })
       .catch(function (error) {
@@ -67,7 +66,7 @@ const HistoryPage = () => {
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <Image
-                    alt={msg.messages[1]?.role}
+                    alt={msg.messages[1]?.role || "assistant"}
                     src={
                       msg.messages[1]?.role === "user"
                         ? "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
