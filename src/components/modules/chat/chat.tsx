@@ -7,11 +7,18 @@ import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import { Message } from "@/types/message";
 
-const ChatPage = () => {
+const ChatPage = ({
+  initialMessages = [],
+  initialIdentifier = "",
+}: {
+  initialMessages?: Message[];
+  initialIdentifier?: string;
+}) => {
   const { register, handleSubmit, reset } = useForm<{ question: string }>();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [loading, setLoading] = useState<boolean>(false);
-  const [uniqueIdentifier, setUniqueIdentifier] = useState<string>("");
+  const [uniqueIdentifier, setUniqueIdentifier] =
+    useState<string>(initialIdentifier);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -32,17 +39,71 @@ const ChatPage = () => {
     }
   }, [messages]);
 
+
+  useEffect(() => {
+    if (initialMessages.length > 0) {
+      setMessages(initialMessages);
+    }
+  }, [initialMessages]);
+
+  // console.log(initialMessages, messages);
+
+  // const onSubmit = async (data: { question: string }) => {
+  //   setLoading(true);
+
+  //   const userMessage = { role: "user" as const, content: data.question };
+  //   const updatedMessages = [...messages, userMessage];
+  //   setMessages(updatedMessages);
+
+  //   try {
+  //     const res = await axios.post(
+  //       "https://api.echogpt.live/v1/chat/completions",
+  //       {
+  //         // messages: [...messages, userMessage],
+  //         messages: updatedMessages,
+  //         model: "EchoGPT",
+  //       },
+  //       {
+  //         headers: {
+  //           "x-api-key": process.env.NEXT_PUBLIC_ECHOGPT_API,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     const botMessage = res.data.choices[0]?.message?.content || "No response";
+
+  //     setMessages((prev) => [
+  //       ...prev,
+  //       { role: "assistant", content: botMessage },
+  //     ]);
+  //   } catch (error) {
+  //     console.error("Error fetching response:", error);
+  //     setMessages((prev) => [
+  //       ...prev,
+  //       { role: "assistant", content: "Error fetching response." },
+  //     ]);
+  //   } finally {
+  //     setLoading(false);
+  //     reset();
+  //   }
+  // };
+
   const onSubmit = async (data: { question: string }) => {
     setLoading(true);
-
+  
     const userMessage = { role: "user" as const, content: data.question };
-    setMessages((prev) => [...prev, userMessage]);
-
+    const updatedMessages = [...messages, userMessage];
+  
+    console.log("Updated Messages Before Sending:", updatedMessages);
+  
+    setMessages(updatedMessages);
+  
     try {
       const res = await axios.post(
         "https://api.echogpt.live/v1/chat/completions",
         {
-          messages: [...messages, userMessage],
+          messages: [userMessage],
           model: "EchoGPT",
         },
         {
@@ -52,24 +113,19 @@ const ChatPage = () => {
           },
         }
       );
-
+  
       const botMessage = res.data.choices[0]?.message?.content || "No response";
-
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: botMessage },
-      ]);
+  
+      setMessages((prev) => [...prev, { role: "assistant", content: botMessage }]);
     } catch (error) {
       console.error("Error fetching response:", error);
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "Error fetching response." },
-      ]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "Error fetching response." }]);
     } finally {
       setLoading(false);
       reset();
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center h-screen">

@@ -28,19 +28,19 @@ const HistoryPage = () => {
           <Link
             href={`history/${msg.uniqueIdentifier}`}
             key={index}
-            className="mb-4 bg-gray-800 border"
+            className="border block mb-4 px-4 py-2 rounded-xl "
           >
             <div
               className={`chat ${
-                msg.messages[0].role === "user" ? "chat-end" : "chat-start"
+                msg.messages[0]?.role === "user" ? "chat-end" : "chat-start"
               }`}
             >
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <Image
-                    alt={msg.messages[0].role}
+                    alt={msg.messages[0]?.role}
                     src={
-                      msg.messages[0].role === "user"
+                      msg.messages[0]?.role === "user"
                         ? "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                         : "https://cdn-icons-png.flaticon.com/512/4712/4712035.png"
                     }
@@ -51,25 +51,25 @@ const HistoryPage = () => {
               </div>
               <div
                 className={`chat-bubble ${
-                  msg.messages[0].role === "user"
+                  msg.messages[0]?.role === "user"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-300 text-black"
                 }`}
               >
-                {msg.messages[0].content}
+                {msg.messages[0]?.content}
               </div>
             </div>
             <div
               className={`chat  ${
-                msg.messages[1].role === "user" ? "chat-end" : "chat-start"
+                msg.messages[1]?.role === "user" ? "chat-end" : "chat-start"
               }`}
             >
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <Image
-                    alt={msg.messages[1].role}
+                    alt={msg.messages[1]?.role}
                     src={
-                      msg.messages[1].role === "user"
+                      msg.messages[1]?.role === "user"
                         ? "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                         : "https://cdn-icons-png.flaticon.com/512/4712/4712035.png"
                     }
@@ -80,12 +80,12 @@ const HistoryPage = () => {
               </div>
               <div
                 className={`chat-bubble ${
-                  msg.messages[1].role === "user"
+                  msg.messages[1]?.role === "user"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-300 text-black"
                 }`}
               >
-                {msg.messages[1].content}
+                {msg.messages[1]?.content}
               </div>
             </div>
           </Link>
