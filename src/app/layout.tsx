@@ -28,13 +28,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="flex justify-between ">
-          <div className="w-[20%]">
-            <div className="fixed ">
+        <main className="flex lg:justify-between ">
+          <div className="lg:w-[20%] z-50 fixed lg:relative">
+            <div className="lg:fixed ">
               <Drawer />
             </div>
           </div>
-          <div className="flex-grow overflow-auto w-[70%] h-full ">{children}</div>
+          <div className="flex-1 flex-grow overflow-auto lg:w-[70%] h-full mt-12 lg:mt-0">{children}</div>
         </main>
       </body>
     </html>
