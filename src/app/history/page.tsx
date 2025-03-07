@@ -19,9 +19,11 @@ const HistoryPage = () => {
       });
   }, []);
   return (
-    <div>
+    <div className=" p-4 min-h-screen flex flex-col ">
       {prevMsgs.length === 0 ? (
-        <p>No history found</p>
+        <div className="flex flex-1 items-center justify-center  h-full">
+          <p>No history found</p>
+        </div>
       ) : (
         prevMsgs.map((msg, index) => (
           <Link

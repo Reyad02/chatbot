@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Drawer from "@/components/ui/drawer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <main className="flex justify-between ">
+          <div className="w-[20%]">
+            <div className="fixed ">
+              <Drawer />
+            </div>
+          </div>
+          <div className="flex-grow overflow-auto w-[70%] h-full ">{children}</div>
+        </main>
       </body>
     </html>
   );

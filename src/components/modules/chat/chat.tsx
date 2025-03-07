@@ -89,12 +89,12 @@ const ChatPage = ({
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className=" mx-auto border h-full w-full p-4 flex flex-col space-y-4">
-        <div className="space-y-2">
+    <div className="flex justify-center items-center  h-full">
+      <div className=" mx-auto  h-full w-full p-4  flex flex-col space-y-4 min-h-screen ">
+        <div className="space-y-2  flex flex-col flex-1">
           {messages.length === 0 ? (
-            <div className="border h-full flex items-center justify-center">
-              <p className="text-center">Ask me anything...</p>
+            <div className="  flex flex-1 items-center justify-center ">
+              <p className="text-center flex-1">Ask me anything...</p>
             </div>
           ) : (
             messages.map((msg, index) => (
@@ -132,7 +132,7 @@ const ChatPage = ({
           )}
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-auto flex">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-auto flex ">
           <input
             type="text"
             placeholder="Ask a question..."
