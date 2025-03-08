@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["img.daisyui.com", "cdn-icons-png.flaticon.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.daisyui.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-icons-png.flaticon.com',
+      },
+    ],
   },
 };
 

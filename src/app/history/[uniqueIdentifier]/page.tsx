@@ -6,19 +6,49 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const SingleChatPage = () => {
-  const { uniqueIdentifier } = useParams();
+  const params = useParams();
+  const { uniqueIdentifier } = params;
   const [prevMsgs, setPrevMsgs] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    if (!uniqueIdentifier) return;
+
+    setLoading(true);
     axios
-      .get(`http://localhost:5000/api/chat/history/${uniqueIdentifier}`)
+      .get(
+        `https://chat-bot-backend-chi.vercel.app/api/chat/history/${uniqueIdentifier}`,
+        {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
+      )
       .then(function (response) {
-        setPrevMsgs(response.data.data.messages)
+        setPrevMsgs(response.data.data.messages);
       })
       .catch(function (error) {
-        console.log(error);
+        console.error("Error fetching data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [uniqueIdentifier]);
-  return <ChatPage initialMessages={prevMsgs} initialIdentifier={uniqueIdentifier as string}  />;
+
+  if (loading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <span className="loading loading-spinner loading-xl"></span>
+      </div>
+    );
+  }
+
+  return (
+    <ChatPage
+      initialMessages={prevMsgs}
+      initialIdentifier={uniqueIdentifier as string}
+    />
+  );
 };
 
 export default SingleChatPage;

@@ -8,28 +8,42 @@ import { useEffect, useState } from "react";
 
 const History = () => {
   const [prevMsgs, setPrevMsgs] = useState<IHistory[]>([]);
+  const [loading, setLoading] = useState(true); 
+
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/chat/history")
+      .get("https://chat-bot-backend-chi.vercel.app/api/chat/history", {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      })
       .then(function (response) {
         setPrevMsgs(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false); 
       });
   }, []);
+
   return (
-    <div className=" p-4 min-h-screen flex flex-col ">
-      {prevMsgs.length === 0 ? (
-        <div className="flex flex-1 items-center justify-center  h-full">
+    <div className="p-4 min-h-screen flex flex-col">
+      {loading ? ( 
+        <div className="h-screen flex justify-center items-center">
+        <span className="loading loading-spinner loading-xl"></span>
+      </div>
+      ) : prevMsgs.length === 0 ? ( 
+        <div className="flex flex-1 items-center justify-center h-full">
           <p className="text-lg">No history found</p>
         </div>
       ) : (
         prevMsgs.map((msg, index) => (
           <Link
-            href={`history/${msg.uniqueIdentifier}`}
+            href={`/history/${msg.uniqueIdentifier}`}
             key={index}
-            className="border border-[#7c7b7f] block mb-4 px-4 py-2 rounded-xl "
+            className="border border-[#7c7b7f] block mb-4 px-4 py-2 rounded-xl"
           >
             <div
               className={`chat ${
@@ -61,7 +75,7 @@ const History = () => {
               </div>
             </div>
             <div
-              className={`chat  ${
+              className={`chat ${
                 msg.messages[1]?.role === "user" ? "chat-end" : "chat-start"
               }`}
             >
@@ -80,12 +94,12 @@ const History = () => {
                 </div>
               </div>
               <div
-                  className={`chat-bubble rounded-md relative w-full p-4 ${
-                    msg.messages[1]?.role === "user"
-                      ? "bg-[#2B2830] text-[#C0BCCA] text-right"
-                      : "bg-[#212024] text-[#7E7A86] text-left "
-                  }`}
-                >
+                className={`chat-bubble rounded-md relative w-full p-4 ${
+                  msg.messages[1]?.role === "user"
+                    ? "bg-[#2B2830] text-[#C0BCCA] text-right"
+                    : "bg-[#212024] text-[#7E7A86] text-left"
+                }`}
+              >
                 {msg.messages[1]?.content}
               </div>
             </div>

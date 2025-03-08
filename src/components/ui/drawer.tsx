@@ -66,18 +66,24 @@ const Drawer = () => {
           <li className="pointer-events-none">
             <h1 className="text-xl">ChatBot</h1>
           </li>
-          <li className={pathname === "/" ? "bg-[#17151B] text-[#C0BCCA]" : "bg-transparent text-[#7E7A86]"}>
+          <li
+            className={
+              pathname === "/"
+                ? "bg-[#17151B] text-[#C0BCCA] rounded"
+                : "bg-transparent text-[#7E7A86]"
+            }
+          >
             <Link href="/" onClick={() => setIsDrawerOpen(false)}>
-              <MdOutlineMessage className="text-lg"/> New Chat
+              <MdOutlineMessage className="text-lg" /> New Chat
             </Link>
           </li>
           <li
             className={
-              pathname.includes("/history") ? "bg-[#17151B] text-[#C0BCCA]" : "bg-transparent text-[#7E7A86]"
+              pathname.startsWith("/history") ? "bg-[#17151B] text-[#C0BCCA] rounded" : "bg-transparent text-[#7E7A86]"
             }
           >
             <Link href="/history" onClick={() => setIsDrawerOpen(false)}>
-              <FaHistory className="text-base"/> History
+              <FaHistory className="text-base" /> History
             </Link>
           </li>
         </ul>

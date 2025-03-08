@@ -30,16 +30,26 @@ const ChatPage = ({
       }
       const messagesFullContent = { messages, uniqueIdentifier: identifier };
       axios
-        .post("http://localhost:5000/api/chat", {
-          messagesFullContent,
-        })
+        .post(
+          "https://chat-bot-backend-chi.vercel.app/api/chat",
+          {
+            messagesFullContent,
+          },
+          {
+            headers: {
+              "Cache-Control": "no-store", 
+            },
+          }
+        )
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .then(function (response) {
-          console.log(response);
+          // console.log(response);
         })
         .catch(function (error) {
           console.log(error);
         });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   useEffect(() => {
