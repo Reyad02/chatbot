@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="flex lg:justify-between ">
+        <main className="flex lg:justify-between bg-[#0F0E11]">
           <div className="lg:w-[20%] z-50 fixed lg:relative">
             <div className="lg:fixed ">
               <Drawer />

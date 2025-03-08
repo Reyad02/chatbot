@@ -22,14 +22,14 @@ const History = () => {
     <div className=" p-4 min-h-screen flex flex-col ">
       {prevMsgs.length === 0 ? (
         <div className="flex flex-1 items-center justify-center  h-full">
-          <p>No history found</p>
+          <p className="text-lg">No history found</p>
         </div>
       ) : (
         prevMsgs.map((msg, index) => (
           <Link
             href={`history/${msg.uniqueIdentifier}`}
             key={index}
-            className="border block mb-4 px-4 py-2 rounded-xl "
+            className="border border-[#7c7b7f] block mb-4 px-4 py-2 rounded-xl "
           >
             <div
               className={`chat ${
@@ -51,10 +51,10 @@ const History = () => {
                 </div>
               </div>
               <div
-                className={`chat-bubble ${
+                className={`chat-bubble rounded-md relative w-full p-4 ${
                   msg.messages[0]?.role === "user"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-300 text-black"
+                    ? "bg-[#3f3c45] text-[#C0BCCA] text-right"
+                    : "bg-[#17151B] text-[#7E7A86] text-left"
                 }`}
               >
                 {msg.messages[0]?.content}
@@ -80,12 +80,12 @@ const History = () => {
                 </div>
               </div>
               <div
-                className={`chat-bubble ${
-                  msg.messages[1]?.role === "user"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-300 text-black"
-                }`}
-              >
+                  className={`chat-bubble rounded-md relative w-full p-4 ${
+                    msg.messages[1]?.role === "user"
+                      ? "bg-[#2B2830] text-[#C0BCCA] text-right"
+                      : "bg-[#212024] text-[#7E7A86] text-left "
+                  }`}
+                >
                 {msg.messages[1]?.content}
               </div>
             </div>

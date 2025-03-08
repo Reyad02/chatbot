@@ -6,6 +6,7 @@ import axios from "axios";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import { Message } from "@/types/message";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 const ChatPage = ({
   initialMessages = [],
@@ -94,7 +95,7 @@ const ChatPage = ({
         <div className="space-y-2  flex flex-col flex-1">
           {messages.length === 0 ? (
             <div className="  flex flex-1 items-center justify-center ">
-              <p className="text-center flex-1">Ask me anything...</p>
+              <p className="text-center flex-1 text-lg">{`Hey there! I'm here to help. Ask me anything...`}</p>
             </div>
           ) : (
             messages.map((msg, index) => (
@@ -119,10 +120,10 @@ const ChatPage = ({
                   </div>
                 </div>
                 <div
-                  className={`chat-bubble ${
+                  className={`chat-bubble rounded-md relative w-full p-4 ${
                     msg.role === "user"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300 text-black"
+                      ? "bg-[#3f3c45] text-[#C0BCCA] text-right"
+                      : "bg-[#212024] text-[#7E7A86] text-left"
                   }`}
                 >
                   {msg.content}
@@ -137,14 +138,18 @@ const ChatPage = ({
             type="text"
             placeholder="Ask a question..."
             {...register("question", { required: true })}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full p-4 bg-transparent"
           />
           <button
             type="submit"
-            className="btn btn-primary ml-2"
+            className="btn bg-[#2B2830] ml-2"
             disabled={loading}
           >
-            {loading ? "Thinking..." : "Send"}
+            {loading ? (
+              <span className="loading loading-spinner loading-md text-white"></span>
+            ) : (
+              <BsArrowReturnLeft className="text-lg text-white" />
+            )}
           </button>
         </form>
       </div>
